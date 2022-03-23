@@ -3,8 +3,8 @@ import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 
-public class Payment {
-    final int cardNumber;
+public class Payment implements Cloneable {
+    String cardNumber;
     final String expiryDate;
     final double amount;
     final String currency;
@@ -14,7 +14,7 @@ public class Payment {
 
     final List<String> currencyList;
 
-    public Payment(int cardNumber, String expiryDate, double amount, String currency, Integer cvv, boolean success){
+    public Payment(String cardNumber, String expiryDate, double amount, String currency, Integer cvv, boolean success){
         this.paymentTime = Instant.now();
         this.cardNumber = cardNumber;
         this.amount = amount;
@@ -22,10 +22,10 @@ public class Payment {
         this.expiryDate = expiryDate;
         this.cvv = cvv;
         this.success = false;
-        this.currencyList = Arrays.asList("GBP", "USD", "EUR", "JPY", "BRL");
+        this.currencyList = Arrays.asList("GBP", "USD", "EUR", "JPY", "CHF", "NZD", "AUD","KRW","CNY");
     }
 
-    public int getCardNumber(){
+    public String getCardNumber(){
         return cardNumber;
     }
 
@@ -42,7 +42,7 @@ public class Payment {
     }
 
     public boolean performValidation(){
-        int length = String.valueOf(cardNumber).length();
+        int length = cardNumber.length();
         if (length != 16){
             return false;
         }
@@ -59,6 +59,13 @@ public class Payment {
             return false;
         }
         return true;
+    }
+
+    public void maskCardNumber(){
+        this.cardNumber = "############" + this.cardNumber.substring(cardNumber.length() - 4);
+    }
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }
 

@@ -22,13 +22,13 @@ public class PaymentGatewayController {
 
     // get particular payment by payment id
     @GetMapping("/payments/{id}")
-    Payment printPayments(@PathVariable int id) {
-        return payments.getPaymentById(id);
+    Payment printPayments(@PathVariable int id) throws CloneNotSupportedException {
+        return payments.getPaymentByIdMasked(id);
     }
 
     // process payment and receive true/false confirmation
     @PostMapping("/payments")
-    boolean submitPayment(@RequestParam int cardNumber, @RequestParam String expiryDate, @RequestParam double amount, @RequestParam String currency, @RequestParam Integer cvv, @RequestParam boolean success){
+    boolean submitPayment(@RequestParam String cardNumber, @RequestParam String expiryDate, @RequestParam double amount, @RequestParam String currency, @RequestParam Integer cvv, @RequestParam boolean success){
         Payment newPayment = new Payment(cardNumber, expiryDate, amount, currency, cvv, success);
         // perform validation
         if (newPayment.performValidation() == false){

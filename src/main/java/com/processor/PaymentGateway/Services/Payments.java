@@ -14,10 +14,6 @@ public final class Payments {
         this.paymentsList = new TreeMap<>();
     }
 
-    public TreeMap<Integer, Payment> getPayments() {
-        return paymentsList;
-    }
-
     public String printPayments() throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         String currentPayments = mapper.writeValueAsString(paymentsList);
@@ -28,8 +24,19 @@ public final class Payments {
         return paymentsList;
     }
 
+    public TreeMap<Integer, Payment> getPaymentsListMasked() {
+        TreeMap<Integer, Payment> maskedPaymentsList = new TreeMap<Integer, Payment>();
+        return maskedPaymentsList;
+    }
+
     public Payment getPaymentById(int id){
         return paymentsList.get(id);
+    }
+
+    public Payment getPaymentByIdMasked(int id) throws CloneNotSupportedException {
+        Payment requestedPayment = (Payment) paymentsList.get(id).clone(); // cloned as don't want to alter the actual payment
+        requestedPayment.maskCardNumber();
+        return requestedPayment;
     }
 
     public int getCur_id(){
@@ -39,6 +46,5 @@ public final class Payments {
     public void setCur_id(int cur_id) {
         this.cur_id = cur_id;
     }
-
 
 }
