@@ -10,16 +10,18 @@ public class Payment {
     final String currency;
     final Integer cvv;
     final Instant paymentTime;
+    boolean success;
 
     final List<String> currencyList;
 
-    public Payment(int cardNumber, String expiryDate, double amount, String currency, Integer cvv){
+    public Payment(int cardNumber, String expiryDate, double amount, String currency, Integer cvv, boolean success){
         this.paymentTime = Instant.now();
         this.cardNumber = cardNumber;
         this.amount = amount;
         this.currency = currency;
         this.expiryDate = expiryDate;
         this.cvv = cvv;
+        this.success = false;
         this.currencyList = Arrays.asList("GBP", "USD", "EUR", "JPY", "BRL");
     }
 
@@ -33,6 +35,10 @@ public class Payment {
 
     public Integer getCvv() {
         return cvv;
+    }
+
+    public void setSuccess(boolean success){
+        this.success = success;
     }
 
     public boolean performValidation(){

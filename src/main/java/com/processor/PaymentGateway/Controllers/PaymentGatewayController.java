@@ -28,8 +28,8 @@ public class PaymentGatewayController {
 
     // process payment and receive true/false confirmation
     @PostMapping("/payments")
-    boolean submitPayment(@RequestParam int cardNumber, @RequestParam String expiryDate, @RequestParam double amount, @RequestParam String currency, @RequestParam Integer cvv){
-        Payment newPayment = new Payment(cardNumber, expiryDate, amount, currency, cvv);
+    boolean submitPayment(@RequestParam int cardNumber, @RequestParam String expiryDate, @RequestParam double amount, @RequestParam String currency, @RequestParam Integer cvv, @RequestParam boolean success){
+        Payment newPayment = new Payment(cardNumber, expiryDate, amount, currency, cvv, success);
         // perform validation
         if (newPayment.performValidation() == false){
             return false;
@@ -38,13 +38,12 @@ public class PaymentGatewayController {
         String uri = "http://localhost:8080/transaction";
         RestTemplate restTemplate = new RestTemplate();
         Boolean result = restTemplate.getForObject(uri, boolean.class);
+        payments.setCur_id(payments.getCur_id() + 1);
         if (result == true) {
-            payments.setCur_id(payments.getCur_id() + 1);
-            payments.getPaymentsList().put(payments.getCur_id(), newPayment);
-            return true;
-        } else {
-            return false;
+            newPayment.setSuccess(true);
         }
+        payments.getPaymentsList().put(payments.getCur_id(), newPayment);
+        return result;
     }
 
     @DeleteMapping("/payments/{id}")
