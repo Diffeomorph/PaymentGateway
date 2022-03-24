@@ -35,7 +35,7 @@ public class PaymentGatewayController {
             return false;
         }
 
-        String uri = "http://localhost:8080/transaction";
+        String uri = "http://localhost:8080/transactions";
         RestTemplate restTemplate = new RestTemplate();
         Boolean result = restTemplate.getForObject(uri, boolean.class);
         payments.setCur_id(payments.getCur_id() + 1);
