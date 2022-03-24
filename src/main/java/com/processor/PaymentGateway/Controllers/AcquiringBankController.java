@@ -9,27 +9,27 @@ public class AcquiringBankController {
     @Autowired
     //private Payments payments;
 
-    @GetMapping("/payments")
+    @GetMapping("/transactions")
     void printPayments() {
 
     }
 
-    @GetMapping("/payments/{id}")
+    @GetMapping("/transactions/{id}")
     void get(){
         //code
     }
 
-    @PostMapping("/transaction")
+    @PostMapping("/transactions")
     boolean doTransaction(){
         return true;
     }
 
-    @DeleteMapping("/payments/{id}")
+    @DeleteMapping("/transactions/{id}")
     void deletePayment(@PathVariable int id, @RequestParam String lll){
         // code
     }
 
-    @PutMapping("/payments/{id}")
+    @PutMapping("/transactions/{id}")
     void updatePayment(){
         //code
     }

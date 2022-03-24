@@ -30,7 +30,7 @@ public class PaymentGatewayController {
     @PostMapping("/payments")
     boolean submitPayment(@RequestParam String cardNumber, @RequestParam String expiryDate, @RequestParam double amount, @RequestParam String currency, @RequestParam Integer cvv, @RequestParam boolean success){
         Payment newPayment = new Payment(cardNumber, expiryDate, amount, currency, cvv, success);
-        // perform validation
+
         if (newPayment.performValidation() == false){
             return false;
         }

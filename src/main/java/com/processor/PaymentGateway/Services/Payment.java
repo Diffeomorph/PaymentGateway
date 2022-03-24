@@ -1,7 +1,10 @@
 package com.processor.PaymentGateway.Services;
+import org.springframework.stereotype.Service;
+
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
+import java.lang.String;
 
 public class Payment implements Cloneable {
     String cardNumber;

@@ -2,14 +2,16 @@ package com.processor.PaymentGateway.Services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.stereotype.Service;
 
 import java.util.TreeMap;
 
+@Service
 public final class Payments {
     TreeMap<Integer, Payment> paymentsList;
     int cur_id;
 
-    Payments(){
+    public Payments(){
         this.cur_id = 0;
         this.paymentsList = new TreeMap<>();
     }
