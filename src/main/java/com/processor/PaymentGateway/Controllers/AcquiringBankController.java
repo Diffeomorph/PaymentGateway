@@ -6,16 +6,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class AcquiringBankController {
 
-    @Autowired
-    //private Payments payments;
-
     @GetMapping("/transactions")
-    void printPayments() {
+    void printTransactions() {
 
     }
 
     @GetMapping("/transactions/{id}")
-    void get(){
+    void getTransactionById(){
         //code
     }
 
@@ -25,12 +22,12 @@ public class AcquiringBankController {
     }
 
     @DeleteMapping("/transactions/{id}")
-    void deletePayment(@PathVariable int id, @RequestParam String lll){
+    void deleteTransaction(@PathVariable int id, @RequestParam String lll){
         // code
     }
 
     @PutMapping("/transactions/{id}")
-    void updatePayment(){
+    void updateTransaction(){
         //code
     }
 

@@ -47,18 +47,26 @@ public class Payment implements Cloneable {
     public boolean performValidation(){
         int length = cardNumber.length();
         if (length != 16){
+            System.out.println("here1");
             return false;
         }
         if (expiryDate.charAt(2) != '/' || Integer.parseInt(expiryDate.substring(0,2)) < 0 || Integer.parseInt(expiryDate.substring(0,2)) > 12 || Integer.parseInt(expiryDate.substring(3)) < 0 || Integer.parseInt(expiryDate.substring(3)) > 50) {
+            System.out.println("here2");
+            System.out.println(expiryDate.charAt(2));
+            System.out.println(Integer.parseInt(expiryDate.substring(0,2)));
+            System.out.println(Integer.parseInt(expiryDate.substring(3)));
             return false;
         }
         if (0 > amount || amount > Double.MAX_VALUE){
+            System.out.println("here3");
             return false;
         }
         if (currencyList.contains(currency) == false){
+            System.out.println("here4");
             return false;
         }
         if (cvv < 0 || cvv > 999){
+            System.out.println("here5");
             return false;
         }
         return true;

@@ -16,10 +16,8 @@ public final class Payments {
         this.paymentsList = new TreeMap<>();
     }
 
-    public String printPayments() throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        String currentPayments = mapper.writeValueAsString(paymentsList);
-        return currentPayments;
+    public TreeMap<Integer, Payment> printPayments() throws JsonProcessingException {
+        return paymentsList;
     }
 
     public TreeMap<Integer, Payment> getPaymentsList() {

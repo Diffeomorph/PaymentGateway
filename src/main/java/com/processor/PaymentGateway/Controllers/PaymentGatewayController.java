@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
+import java.util.TreeMap;
+
 @RestController
 public class PaymentGatewayController {
 
@@ -15,8 +18,8 @@ public class PaymentGatewayController {
 
     // get all past payments made through gateway
     @GetMapping("/payments")
-    String printPayments() throws JsonProcessingException {
-        String currentPayments = payments.printPayments();
+    TreeMap<Integer,Payment> printPayments() throws JsonProcessingException {
+        TreeMap<Integer,Payment> currentPayments = payments.printPayments();
         return currentPayments;
     }
 
@@ -37,7 +40,7 @@ public class PaymentGatewayController {
 
         String uri = "http://localhost:8080/transactions";
         RestTemplate restTemplate = new RestTemplate();
-        Boolean result = restTemplate.getForObject(uri, boolean.class);
+        boolean result = restTemplate.postForObject(uri,null,boolean.class);
         payments.setCur_id(payments.getCur_id() + 1);
         if (result == true) {
             newPayment.setSuccess(true);
