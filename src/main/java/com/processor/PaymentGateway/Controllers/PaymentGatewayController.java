@@ -10,6 +10,10 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 import java.util.TreeMap;
 
+/**
+ * The PaymentGatewayController provides the endpoints for the merchant to submit payments and retrieve past attempted
+ * transactions.
+ */
 @RestController
 public class PaymentGatewayController {
 

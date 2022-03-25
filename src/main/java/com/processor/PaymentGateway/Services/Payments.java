@@ -6,6 +6,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.TreeMap;
 
+/**
+ * The Payments class provide the structure to hold all attempted payments. It also provides functionality to retrieve
+ * previous transactions and mask the card number.
+ */
 @Service
 public final class Payments {
     TreeMap<Integer, Payment> paymentsList;
