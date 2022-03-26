@@ -1,8 +1,8 @@
 package com.processor.PaymentGateway.Services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.TreeMap;
 
@@ -50,5 +50,21 @@ public final class Payments {
     public void setCur_id(int cur_id) {
         this.cur_id = cur_id;
     }
+
+    public boolean submitPayment(Payment newPayment){
+        if (newPayment.performValidation() == false){
+            return false;
+        }
+        String uri = "http://localhost:8080/transactions";
+        RestTemplate restTemplate = new RestTemplate();
+        boolean result = restTemplate.postForObject(uri,null,boolean.class);
+        this.setCur_id(this.getCur_id() + 1);
+        if (result == true) {
+            newPayment.setSuccess(true);
+        }
+        this.getPaymentsList().put(this.getCur_id(), newPayment);
+        return result;
+    }
+
 
 }

@@ -35,22 +35,8 @@ public class PaymentGatewayController {
 
     // process payment and receive true/false confirmation
     @PostMapping("/payments")
-    boolean submitPayment(@RequestParam String cardNumber, @RequestParam String expiryDate, @RequestParam double amount, @RequestParam String currency, @RequestParam Integer cvv, @RequestParam boolean success){
-        Payment newPayment = new Payment(cardNumber, expiryDate, amount, currency, cvv, success);
-
-        if (newPayment.performValidation() == false){
-            return false;
-        }
-
-        String uri = "http://localhost:8080/transactions";
-        RestTemplate restTemplate = new RestTemplate();
-        boolean result = restTemplate.postForObject(uri,null,boolean.class);
-        payments.setCur_id(payments.getCur_id() + 1);
-        if (result == true) {
-            newPayment.setSuccess(true);
-        }
-        payments.getPaymentsList().put(payments.getCur_id(), newPayment);
-        return result;
+    boolean submitPayment(@RequestBody Payment newPayment){
+        return payments.submitPayment(newPayment);
     }
 
     @DeleteMapping("/payments/{id}")
