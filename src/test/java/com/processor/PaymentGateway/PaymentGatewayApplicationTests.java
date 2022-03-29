@@ -28,17 +28,20 @@ class PaymentGatewayApplicationTests {
 		mockPayment = new Payment("1234567891234567", "03/20", 1000, "USD", 456, false);
 	}
 
+	// check card validation works
 	@Test
 	void testValidation(){
 		assertEquals(mockPayment.performValidation(), true);
 	}
 
+	// check card number masking works
 	@Test
 	void testMasking(){
 		mockPayment.maskCardNumber();
 		assertEquals(mockPayment.getCardNumber().substring(0,12),"############");
 	}
 
+	// test whether you can submitPayment() to the acquiring bank
 	@Test
 	public void testSubmitPayment() throws Exception {
 		boolean result = payments.submitPayment(mockPayment);
