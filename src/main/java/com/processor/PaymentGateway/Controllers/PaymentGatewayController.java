@@ -22,8 +22,8 @@ public class PaymentGatewayController {
 
     // Get all past payments made through gateway
     @GetMapping("/payments")
-    TreeMap<Integer,Payment> printPayments() throws JsonProcessingException {
-        TreeMap<Integer,Payment> currentPayments = payments.printPayments();
+    TreeMap<Integer,Payment> getPayments() throws JsonProcessingException, CloneNotSupportedException {
+        TreeMap<Integer,Payment> currentPayments = payments.getPaymentsMaskedList();
         return currentPayments;
     }
 
@@ -40,7 +40,7 @@ public class PaymentGatewayController {
     }
 
     @DeleteMapping("/payments/{id}")
-    void deletePayment(@PathVariable int id, @RequestParam String lll){
+    void deletePayment(){
         // code
     }
 

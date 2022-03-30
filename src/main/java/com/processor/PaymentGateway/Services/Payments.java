@@ -26,6 +26,16 @@ public final class Payments {
         return paymentsList;
     }
 
+    public TreeMap<Integer, Payment> getPaymentsMaskedList() throws CloneNotSupportedException {
+        TreeMap<Integer,Payment> maskedPayments = new TreeMap<>();
+        for (Integer key: paymentsList.keySet()){
+            Payment curPayment = (Payment) paymentsList.get(key).clone();
+            curPayment.maskCardNumber();
+            maskedPayments.put(key, curPayment);
+        }
+        return maskedPayments;
+    }
+
     public Payment getPaymentById(int id){
         return paymentsList.get(id);
     }
