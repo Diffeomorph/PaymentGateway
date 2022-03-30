@@ -46,6 +46,10 @@ public final class Payments {
         return requestedPayment;
     }
 
+    public void setPaymentsList(TreeMap<Integer, Payment> paymentsList){
+        this.paymentsList = paymentsList;
+    }
+
     public int getCur_id(){
         return this.cur_id;
     }
