@@ -18,7 +18,7 @@ public class PaymentGatewayController {
     @Autowired
     private Payments payments;
 
-    // Get all past payments made through gateway
+    // Get all past payments made through gateway (masked response)
     @GetMapping("/payments")
     TreeMap<Integer,Payment> getPayments() throws JsonProcessingException, CloneNotSupportedException {
         TreeMap<Integer,Payment> currentPayments = payments.getPaymentsMaskedList();
