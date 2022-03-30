@@ -20,20 +20,20 @@ public class PaymentGatewayController {
     @Autowired
     private Payments payments;
 
-    // get all past payments made through gateway
+    // Get all past payments made through gateway
     @GetMapping("/payments")
     TreeMap<Integer,Payment> printPayments() throws JsonProcessingException {
         TreeMap<Integer,Payment> currentPayments = payments.printPayments();
         return currentPayments;
     }
 
-    // get particular payment by payment id
+    // Get particular payment by payment id
     @GetMapping("/payments/{id}")
     Payment printPayments(@PathVariable int id) throws CloneNotSupportedException {
         return payments.getPaymentByIdMasked(id);
     }
 
-    // process payment and receive true/false confirmation
+    // Process payment and receive true/false confirmation
     @PostMapping("/payments")
     boolean submitPayment(@RequestBody Payment newPayment){
         return payments.submitPayment(newPayment);

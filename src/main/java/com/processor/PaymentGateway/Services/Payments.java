@@ -1,9 +1,11 @@
 package com.processor.PaymentGateway.Services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.sun.source.tree.Tree;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -20,17 +22,8 @@ public final class Payments {
         this.paymentsList = new TreeMap<>();
     }
 
-    public TreeMap<Integer, Payment> printPayments() throws JsonProcessingException {
-        return paymentsList;
-    }
-
     public TreeMap<Integer, Payment> getPaymentsList() {
         return paymentsList;
-    }
-
-    public TreeMap<Integer, Payment> getPaymentsListMasked() {
-        TreeMap<Integer, Payment> maskedPaymentsList = new TreeMap<Integer, Payment>();
-        return maskedPaymentsList;
     }
 
     public Payment getPaymentById(int id){
@@ -44,7 +37,7 @@ public final class Payments {
     }
 
     public int getCur_id(){
-        return cur_id;
+        return this.cur_id;
     }
 
     public void setCur_id(int cur_id) {

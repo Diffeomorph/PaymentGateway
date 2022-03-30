@@ -36,6 +36,10 @@ public class Payment implements Cloneable {
         return cardNumber;
     }
 
+    public void setCardNumber(String cardNumber){
+        this.cardNumber = cardNumber;
+    }
+
     public void maskCardNumber(){
         this.cardNumber = "############" + this.cardNumber.substring(cardNumber.length() - 4);
     }

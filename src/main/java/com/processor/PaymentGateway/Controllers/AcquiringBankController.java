@@ -12,7 +12,7 @@ public class AcquiringBankController {
 
     @GetMapping("/transactions")
     void printTransactions() {
-
+        // code
     }
 
     @GetMapping("/transactions/{id}")
@@ -22,12 +22,12 @@ public class AcquiringBankController {
 
     // this receives the transaction from the gateway, and for testing purposes always returns true
     @PostMapping("/transactions")
-    boolean doTransaction(){
+    boolean submitTransaction(){
         return true;
     }
 
     @DeleteMapping("/transactions/{id}")
-    void deleteTransaction(@PathVariable int id, @RequestParam String lll){
+    void deleteTransaction(){
         // code
     }
 
