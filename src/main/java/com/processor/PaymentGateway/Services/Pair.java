@@ -27,10 +27,6 @@ public class Pair<E1, E2> {
         return;
     }
 
-    public E2 setSecond() {
-        return e2;
-    }
-
     public String toString() {
         return String.format("(%s, %s)", e1, e2);
     }
