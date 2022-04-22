@@ -9,26 +9,24 @@ import java.lang.String;
  * The Payment class provide the structure for each individual payment. It also stores whether the transaction has
  * been successful or not.
  */
-public class Payment implements Cloneable {
+public final class Payment implements Cloneable {
     final String cardNumber;
     final String expiryDate;
     final double amount;
     final String currency;
     final Integer cvv;
     final Instant paymentTime;
-    boolean success;
 
     // list of allowed currencies for the transaction
     final List<String> currencyList;
 
-    public Payment(String cardNumber, String expiryDate, double amount, String currency, Integer cvv, boolean success){
+    public Payment(String cardNumber, String expiryDate, double amount, String currency, Integer cvv){
         this.paymentTime = Instant.now();
         this.cardNumber = cardNumber;
         this.amount = amount;
         this.currency = currency;
         this.expiryDate = expiryDate;
         this.cvv = cvv;
-        this.success = false;
         this.currencyList = Arrays.asList("GBP", "USD", "EUR", "JPY", "CHF", "NZD", "AUD","KRW","CNY");
     }
 
@@ -47,14 +45,6 @@ public class Payment implements Cloneable {
 
     public Integer getCvv() {
         return cvv;
-    }
-
-    public boolean getSuccess(){
-        return this.success;
-    }
-
-    public void setSuccess(boolean success){
-        this.success = success;
     }
 
     // check whether the transaction/payment is valid or not

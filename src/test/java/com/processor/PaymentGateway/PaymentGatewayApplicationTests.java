@@ -25,7 +25,7 @@ class PaymentGatewayApplicationTests {
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		testPayment = new Payment("1234567891234567", "03/20", 1000, "USD", 456, false);
+		testPayment = new Payment("1234567891234567", "03/20", 1000, "USD", 456);
 	}
 
 	// check card validation works

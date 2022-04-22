@@ -11,42 +11,44 @@ import java.util.TreeMap;
  */
 @Service
 public final class Payments {
-    TreeMap<Integer, Payment> paymentsTreeMap;
+    TreeMap<Integer, Pair<Payment,Boolean>> paymentsTreeMap2;
     int cur_id;
 
     public Payments(){
         this.cur_id = 0;
-        this.paymentsTreeMap = new TreeMap<>();
+        this.paymentsTreeMap2 = new TreeMap<>();
     }
 
-    public TreeMap<Integer, Payment> getPaymentsTreeMap() {
-        return paymentsTreeMap;
+    public TreeMap<Integer, Pair<Payment,Boolean>> getPaymentsTreeMap() {
+        return paymentsTreeMap2;
     }
 
-    public TreeMap<Integer, Payment> getPaymentsMaskedList() throws CloneNotSupportedException {
-        TreeMap<Integer,Payment> maskedPayments = new TreeMap<>();
-        for (Integer key: paymentsTreeMap.keySet()){
-            Payment curPayment = (Payment) paymentsTreeMap.get(key).clone();
+    public TreeMap<Integer, Pair<Payment,Boolean>> getPaymentsMaskedList() throws CloneNotSupportedException {
+        TreeMap<Integer,Pair<Payment,Boolean>> maskedPayments = new TreeMap<>();
+        for (Integer key: paymentsTreeMap2.keySet()){
+            Payment curPayment = (Payment) paymentsTreeMap2.get(key).getFirst().clone();
+            boolean curSuccess = paymentsTreeMap2.get(key).getSecond();
             String maskedCurPaymentCardNumber = curPayment.maskCardNumber();
-            Payment maskedCurPayment = new Payment(maskedCurPaymentCardNumber, curPayment.expiryDate, curPayment.amount, curPayment.currency, curPayment.cvv, curPayment.success);
-            maskedPayments.put(key, maskedCurPayment);
+            Payment maskedCurPayment = new Payment(maskedCurPaymentCardNumber, curPayment.expiryDate, curPayment.amount, curPayment.currency, curPayment.cvv);
+            Pair maskedPair = new Pair(maskedCurPayment, curSuccess);
+            maskedPayments.put(key, maskedPair);
         }
         return maskedPayments;
     }
 
     public Payment getPaymentById(int id){
-        return paymentsTreeMap.get(id);
+        return paymentsTreeMap2.get(id).getFirst();
     }
 
     public Payment getPaymentByIdMasked(int id) throws CloneNotSupportedException {
-        Payment requestedPayment = (Payment) paymentsTreeMap.get(id).clone(); // cloned as don't want to alter the actual payment
+        Payment requestedPayment = (Payment) paymentsTreeMap2.get(id).getFirst().clone(); // cloned as don't want to alter the actual payment
         String maskedRequestedPaymentCardNumber = requestedPayment.maskCardNumber();
-        Payment maskedRequestedPayment = new Payment(maskedRequestedPaymentCardNumber, requestedPayment.expiryDate, requestedPayment.amount, requestedPayment.currency, requestedPayment.cvv, requestedPayment.success);
+        Payment maskedRequestedPayment = new Payment(maskedRequestedPaymentCardNumber, requestedPayment.expiryDate, requestedPayment.amount, requestedPayment.currency, requestedPayment.cvv);
         return maskedRequestedPayment;
     }
 
-    public void setPaymentsList(TreeMap<Integer, Payment> paymentsTreeMap){
-        this.paymentsTreeMap = paymentsTreeMap;
+    public void setPaymentsList(TreeMap<Integer, Pair<Payment,Boolean>> paymentsTreeMap){
+        this.paymentsTreeMap2 = paymentsTreeMap;
     }
 
     public int getCur_id(){
@@ -65,10 +67,11 @@ public final class Payments {
         RestTemplate restTemplate = new RestTemplate();
         boolean result = restTemplate.postForObject(uri,null,boolean.class);
         this.setCur_id(this.getCur_id() + 1);
+        Pair newPair = new Pair(newPayment, false);
         if (result == true) {
-            newPayment.setSuccess(true);
+            newPair.setSecond(true);
         }
-        this.getPaymentsTreeMap().put(this.getCur_id(), newPayment);
+        this.getPaymentsTreeMap().put(this.getCur_id(), newPair);
         return result;
     }
 

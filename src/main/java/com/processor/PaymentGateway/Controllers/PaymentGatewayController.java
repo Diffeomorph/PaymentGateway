@@ -1,6 +1,7 @@
 package com.processor.PaymentGateway.Controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.processor.PaymentGateway.Services.Pair;
 import com.processor.PaymentGateway.Services.Payment;
 import com.processor.PaymentGateway.Services.Payments;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,8 @@ public class PaymentGatewayController {
 
     // Get all past payments made through gateway (masked response)
     @GetMapping("/payments")
-    TreeMap<Integer,Payment> getPayments() throws JsonProcessingException, CloneNotSupportedException {
-        TreeMap<Integer,Payment> currentPayments = payments.getPaymentsMaskedList();
+    TreeMap<Integer, Pair<Payment, Boolean>> getPayments() throws JsonProcessingException, CloneNotSupportedException {
+        TreeMap<Integer,Pair<Payment, Boolean>> currentPayments = payments.getPaymentsMaskedList();
         return currentPayments;
     }
 
