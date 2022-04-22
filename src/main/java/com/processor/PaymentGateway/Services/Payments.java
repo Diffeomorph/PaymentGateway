@@ -11,11 +11,14 @@ import java.util.TreeMap;
  */
 @Service
 public final class Payments {
-    TreeMap<Integer, Pair<Payment,Boolean>> paymentsTreeMap;
-    int cur_id;
+    static int instanceCounter = 0;
+
+    private int counter = 0;
+    private TreeMap<Integer, Pair<Payment,Boolean>> paymentsTreeMap;
 
     public Payments(){
-        this.cur_id = 0;
+        instanceCounter++;
+        counter = instanceCounter;
         this.paymentsTreeMap = new TreeMap<>();
     }
 
@@ -52,11 +55,7 @@ public final class Payments {
     }
 
     public int getCur_id(){
-        return this.cur_id;
-    }
-
-    public void setCur_id(int cur_id) {
-        this.cur_id = cur_id;
+        return this.counter;
     }
 
     public boolean submitPayment(Payment newPayment){
@@ -66,7 +65,6 @@ public final class Payments {
         String uri = "http://localhost:8080/transactions";
         RestTemplate restTemplate = new RestTemplate();
         boolean result = restTemplate.postForObject(uri,null,boolean.class);
-        this.setCur_id(this.getCur_id() + 1);
         Pair newPair = new Pair(newPayment, false);
         if (result == true) {
             newPair.setSecond(true);
