@@ -16,8 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class PaymentGatewayApplicationTests {
 
 	@Autowired
-	Payments payments;
-	Payment mockPayment;
+	Payments testPayments;
+	Payment testPayment;
 
 	@Test
 	void contextLoads() {
@@ -25,26 +25,26 @@ class PaymentGatewayApplicationTests {
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		mockPayment = new Payment("1234567891234567", "03/20", 1000, "USD", 456, false);
+		testPayment = new Payment("1234567891234567", "03/20", 1000, "USD", 456, false);
 	}
 
 	// check card validation works
 	@Test
 	void testValidation(){
-		assertEquals(mockPayment.performValidation(), true);
+		assertEquals(testPayment.performValidation(), true);
 	}
 
 	// check card number masking works
 	@Test
 	void testMasking(){
-		mockPayment.maskCardNumber();
-		assertEquals(mockPayment.getCardNumber().substring(0,12),"############");
+		testPayment.maskCardNumber();
+		assertEquals(testPayment.getCardNumber().substring(0,12),"############");
 	}
 
 	// test whether you can submitPayment() to the acquiring bank
 	@Test
 	public void testSubmitPayment() throws Exception {
-		boolean result = payments.submitPayment(mockPayment);
+		boolean result = testPayments.submitPayment(testPayment);
 		assertEquals(result, true);
 	}
 
