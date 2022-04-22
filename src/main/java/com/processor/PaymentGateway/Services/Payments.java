@@ -27,8 +27,9 @@ public final class Payments {
         TreeMap<Integer,Payment> maskedPayments = new TreeMap<>();
         for (Integer key: paymentsList.keySet()){
             Payment curPayment = (Payment) paymentsList.get(key).clone();
-            curPayment.maskCardNumber();
-            maskedPayments.put(key, curPayment);
+            String maskedCurPaymentCardNumber = curPayment.maskCardNumber();
+            Payment maskedCurPayment = new Payment(maskedCurPaymentCardNumber, curPayment.expiryDate, curPayment.amount, curPayment.currency, curPayment.cvv, curPayment.success);
+            maskedPayments.put(key, maskedCurPayment);
         }
         return maskedPayments;
     }
@@ -39,8 +40,9 @@ public final class Payments {
 
     public Payment getPaymentByIdMasked(int id) throws CloneNotSupportedException {
         Payment requestedPayment = (Payment) paymentsList.get(id).clone(); // cloned as don't want to alter the actual payment
-        requestedPayment.maskCardNumber();
-        return requestedPayment;
+        String maskedRequestedPaymentCardNumber = requestedPayment.maskCardNumber();
+        Payment maskedRequestedPayment = new Payment(maskedRequestedPaymentCardNumber, requestedPayment.expiryDate, requestedPayment.amount, requestedPayment.currency, requestedPayment.cvv, requestedPayment.success);
+        return maskedRequestedPayment;
     }
 
     public void setPaymentsList(TreeMap<Integer, Payment> paymentsList){

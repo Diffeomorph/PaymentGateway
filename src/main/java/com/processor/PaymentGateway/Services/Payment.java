@@ -10,7 +10,7 @@ import java.lang.String;
  * been successful or not.
  */
 public class Payment implements Cloneable {
-    String cardNumber;
+    final String cardNumber;
     final String expiryDate;
     final double amount;
     final String currency;
@@ -36,12 +36,9 @@ public class Payment implements Cloneable {
         return cardNumber;
     }
 
-    public void setCardNumber(String cardNumber){
-        this.cardNumber = cardNumber;
-    }
-
-    public void maskCardNumber(){
-        this.cardNumber = "############" + this.cardNumber.substring(cardNumber.length() - 4);
+    public String maskCardNumber(){
+        String maskedCardNumber = "############" + this.cardNumber.substring(cardNumber.length() - 4);
+        return maskedCardNumber;
     }
 
     public Instant getPaymentTime() {
