@@ -22,14 +22,14 @@ public class PaymentGatewayController {
     // Get all past payments made through gateway (masked response)
     @GetMapping("/payments")
     TreeMap<Integer, Pair<Payment, Boolean>> getPayments() throws JsonProcessingException, CloneNotSupportedException {
-        TreeMap<Integer,Pair<Payment, Boolean>> currentPayments = payments.getPaymentsMaskedList();
+        TreeMap<Integer,Pair<Payment, Boolean>> currentPayments = payments.getPaymentsTreeMap();
         return currentPayments;
     }
 
     // Get particular payment by payment id
     @GetMapping("/payments/{id}")
-    Payment printPayments(@PathVariable int id) throws CloneNotSupportedException {
-        return payments.getPaymentByIdMasked(id);
+    Payment getPaymentById(@PathVariable int id) throws CloneNotSupportedException {
+        return payments.getPaymentById(id);
     }
 
     // Process payment and receive true/false confirmation
