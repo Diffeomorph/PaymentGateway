@@ -54,7 +54,7 @@ public final class Payments {
         this.paymentsTreeMap = paymentsTreeMap;
     }
 
-    public int getCur_id(){
+    public int getCounter(){
         return this.counter;
     }
 
@@ -69,7 +69,7 @@ public final class Payments {
         if (result == true) {
             newPair.setSecond(true);
         }
-        this.getPaymentsTreeMapNoMasking().put(this.getCur_id(), newPair);
+        this.getPaymentsTreeMapNoMasking().put(this.getCounter(), newPair);
         return result;
     }
 
